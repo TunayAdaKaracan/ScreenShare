@@ -27,7 +27,7 @@ async def client_connection(websocket):
 
 ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
 ssl_certf = pathlib.Path(__file__).with_name("cert.pem")
-ssl_key = pathlib.Path(__file__).with_name("private-key.pem")
+ssl_key = pathlib.Path(__file__).with_name("cert-key.pem")
 ssl_context.load_cert_chain(certfile=ssl_certf, keyfile=ssl_key)
 
 async def main():
