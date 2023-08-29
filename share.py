@@ -19,7 +19,7 @@ def start_refresh_data():
     threading.Thread(target=refresh_data, daemon=True).start()
 
 async def connect_to_server():
-    URL = "ws://18.215.231.109:8080"
+    URL = "ws://stream.kutuptilkisi.dev"
     async with websockets.connect(URL) as websocket:
         await websocket.send("share")
         while True:
