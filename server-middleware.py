@@ -1,5 +1,6 @@
 import websockets
 import asyncio
+import certifi
 import pathlib
 import ssl
 
@@ -26,11 +27,11 @@ async def client_connection(websocket):
         CONNECTIONS.append(websocket)
         await websocket.wait_closed()
 
-#ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-#ssl_context.load_cert_chain(certfile=pathlib.Path("./cert.pem"), keyfile=pathlib.Path("./cert-key.pem"))
+ssl_context = ssl.create_default_context(ssl.PROTOCOL_TLS, cafile=certifi.where())
+ssl_context.load_cert_chain(certfile=pathlib.Path("./cert.pem"), keyfile=pathlib.Path("./cert-key.pem"), )
 
 async def main():
-    async with websockets.serve(client_connection, "0.0.0.0", 8080):
+    async with websockets.serve(client_connection, "0.0.0.0", 8080, ssl=ss):
         while True:
             await broadcast(image_data)
             await asyncio.sleep(0.2)

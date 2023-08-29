@@ -19,11 +19,11 @@ def start_refresh_data():
     threading.Thread(target=refresh_data, daemon=True).start()
 
 async def connect_to_server():
-    URL = "wss://18.215.231.109:8080"
+    URL = "ws://18.215.231.109:8080"
     async with websockets.connect(URL) as websocket:
-        websocket.send("share")
+        await websocket.send("share")
         while True:
-            await asyncio.wait(0.2)
+            await asyncio.sleep(0.2)
             await websocket.send(data)
 
 if __name__ == "__main__":
