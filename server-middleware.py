@@ -30,7 +30,7 @@ ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
 ssl_context.load_cert_chain(certfile=pathlib.Path("./cert.pem"), keyfile=pathlib.Path("./cert-key.pem"))
 
 async def main():
-    async with websockets.serve(client_connection, "localhost", 8080, ssl=ssl_context):
+    async with websockets.serve(client_connection, "0.0.0.0", 8080, ssl=ssl_context):
         while True:
             await broadcast(image_data)
             await asyncio.sleep(0.2)
