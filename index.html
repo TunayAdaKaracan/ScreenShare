@@ -38,7 +38,10 @@
 </body>
 <script type="text/javascript">
     const res = document.getElementById("screenshotImg");
-    const websocket = new WebSocket("ws://localhost:8080");
+    const websocket = new WebSocket("wss://stream.kutuptilkisi.dev");
+    websocket.addEventListener("open", () => {
+        websocket.send("browser")
+    })
     websocket.addEventListener("message", (data) => {
         const imageBlob = new Blob([event.data], { type: "image/jpeg" });
         const imageUrl = URL.createObjectURL(imageBlob);

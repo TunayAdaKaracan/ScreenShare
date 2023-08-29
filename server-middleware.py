@@ -18,20 +18,19 @@ async def sharer_client(websocket):
         
 
 async def client_connection(websocket):
-    print("New client")
     type_websocket = await websocket.recv()
-
+    print("New client, type: "+type_websocket)
     if type_websocket == "share":
         await sharer_client(websocket)
     elif type_websocket == "browser":
         CONNECTIONS.append(websocket)
         await websocket.wait_closed()
 
-#ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-#ssl_context.load_cert_chain(certfile=pathlib.Path("./cert.pem"), keyfile=pathlib.Path("./cert-key.pem"))
+ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+ssl_context.load_cert_chain(certfile=pathlib.Path("./cert.pem"), keyfile=pathlib.Path("./cert-key.pem"))
 
 async def main():
-    async with websockets.serve(client_connection, "0.0.0.0", 8080):
+    async with websockets.serve(client_connection, "0.0.0.0", 8080, ssl=ssl_context):
         while True:
             await broadcast(image_data)
             await asyncio.sleep(0.2)
