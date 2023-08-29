@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}
+        body{margin-top: 50px;} h1 {color: #444444;margin: 50px auto 30px;} h3 {color: #444444;margin-bottom: 50px;}
+        .button {display: block;width: 80px;background-color: #1abc9c;border: none;color: white;padding: 13px 30px;text-decoration: none;font-size: 25px;margin: 0px auto 35px;cursor: pointer;border-radius: 4px;}
+        .button-on {background-color: #1abc9c;}
+        .button-on:active {background-color: #16a085;}
+        p {font-size: 14px;color: #888;margin-bottom: 10px;}
+        #screenshotContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #screenshotImg {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="screenshotContainer">
+        <img id="screenshotImg" src="" alt="Screenshot">
+    </div>
+    <img id="resim">
+    <h>Sorunun Cevabı: </h>
+    <a class="button button-on" href="/cevapA">Cevap A</a>
+    <a class="button button-on" href="/cevapB">Cevap A</a>
+    <a class="button button-on" href="/cevapC">Cevap A</a>
+    <a class="button button-on" href="/cevapD">Cevap A</a>
+    <a class="button button-on" href="/cevapE">Cevap A</a>
+</body>
+<script type="text/javascript">
+    const res = document.getElementById("screenshotImg");
+    const websocket = new WebSocket("ws://localhost:8080");
+    websocket.addEventListener("message", (data) => {
+        const imageBlob = new Blob([event.data], { type: "image/jpeg" });
+        const imageUrl = URL.createObjectURL(imageBlob);
+        res.src = imageUrl;
+    });
+</script>
+</html>
