@@ -17,6 +17,7 @@ async def sharer_client(websocket):
         
 
 async def client_connection(websocket):
+    print("New client")
     type_websocket = await websocket.recv()
 
     if type_websocket == "share":
