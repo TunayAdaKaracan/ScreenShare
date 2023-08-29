@@ -26,9 +26,7 @@ async def client_connection(websocket):
         await websocket.wait_closed()
 
 ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-ssl_certf = pathlib.Path(__file__).with_name("cert.pem")
-ssl_key = pathlib.Path(__file__).with_name("cert-key.pem")
-ssl_context.load_cert_chain(certfile=ssl_certf, keyfile=ssl_key)
+ssl_context.load_cert_chain(certfile=pathlib.Path("./cert.pem"), keyfile=pathlib.Path("./cert-key.pem"))
 
 async def main():
     async with websockets.serve(client_connection, "localhost", 8080, ssl=ssl_context):
