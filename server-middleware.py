@@ -27,7 +27,7 @@ async def client_connection(websocket):
         CONNECTIONS.append(websocket)
         await websocket.wait_closed()
 
-ssl_context = ssl.create_default_context(ssl.PROTOCOL_TLS, cafile=certifi.where())
+ssl_context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH, cafile=certifi.where())
 ssl_context.load_cert_chain(certfile=pathlib.Path("./cert.pem"), keyfile=pathlib.Path("./cert-key.pem"), )
 
 async def main():
